@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+rowNum = 20;
+colNum = 20; 
+
+console.log(
+  'This script populates a test set of pixels to your database. Specified database as argument - e.g.: node populatePixels "mongodb+srv://cooluser:coolpassword@cluster0.lz91hw2.mongodb.net/your_database?retryWrites=true&w=majority"'
+);
+
+// Get arguments passed on command line
+const userArgs = process.argv.slice(2);
+if (!userArgs[0]) {
+  console.log('ERROR: MongoDB connection string not provided');
+  process.exit(1);
+}
+
+const Pixel = require("./models/pixel"); // Adjust the path as necessary
+
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+
+const mongoDB = userArgs[0];
+
+main().catch((err) => console.log(err));
+
+async function main() {
+  console.log("Connecting to database...");
+  await mongoose.connect(mongoDB);
+  console.log("Connected to database. Populating...");
+
+  await createPixels();
+
+  console.log("Finished populating pixels. Closing database connection...");
+  mongoose.connection.close();
+}
+
+async function createPixel(x, y, r, g, b) {
+  const pixelDetail = { x, y, r, g, b };
+  const pixel = new Pixel(pixelDetail);
+  await pixel.save();
+  // console.log(`Pixel at (${x},${y}) with RGB (0,0,0) added.`);
+}
+
+async function createPixels() {
+  console.log("Populating pixels...");
+
+  // Create an array of promises for each pixel
+  const promises = [];
+  for (let x = 0; x <= rowNum; x++) {
+    for (let y = 0; y <= colNum; y++) {
+      promises.push(createPixel(x, y, 0, 0, 0));
+    }
+  }
+
+  // Await all promises to resolve
+  await Promise.all(promises);
+
+  console.log("All pixels have been populated.");
+}
+

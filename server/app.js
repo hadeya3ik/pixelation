@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', messageRouter);
-app.use('/api/pixels', canvasRouter);
+app.use('/pixels', canvasRouter);
 
 // connecting to mongoose
 const mongoose = require("mongoose");

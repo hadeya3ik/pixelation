@@ -5,10 +5,9 @@ const Schema = mongoose.Schema;
 const PixelSchema = new Schema({
   x: { type: Number, required: true },
   y: { type: Number, required: true },
-  R: { type: Number, required: true },
-  G: { type: Number, required: true },
-  B: { type: Number, required: true },
-  updatedAt: { type: Date, default: Date.now }
+  r: { type: Number, required: true },
+  g: { type: Number, required: true },
+  b: { type: Number, required: true },
 });
 
 module.exports = mongoose.model('Pixel', PixelSchema);
