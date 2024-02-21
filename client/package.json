@@ -1,6 +1,6 @@
 {
-  "homepage": "https://hadeya3ik.github.io/pixelation/client",
-  "name": "client",
+  "homepage": "http://hadeya3ik.github.io/pixelation/client",
+  "name": "pixelation",
   "private": true,
   "version": "0.0.0",
   "type": "module",
