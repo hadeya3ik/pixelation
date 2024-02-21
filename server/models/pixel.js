@@ -10,4 +10,9 @@ const PixelSchema = new Schema({
   b: { type: Number, required: true },
 });
 
+PixelSchema.virtual("url").get(function () {
+  return `/pixels/${this._id}`;
+});
+
+
 module.exports = mongoose.model('Pixel', PixelSchema);
