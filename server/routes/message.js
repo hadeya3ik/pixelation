@@ -15,11 +15,9 @@ router.post('/', async function(req, res, next) {
   const author = req.body.author;
   const messageText = req.body.messageText;
 
-  // Create an instance of the Message model
   const message = new Message({
       text: messageText,
       user: author
-      // added will be set to the current date by default due to your schema
   });
 
   try {
