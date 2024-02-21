@@ -4,11 +4,10 @@ import Canvas from '../components/canvas/canvas'
 
 function App() {
   return (
-    <>
-      <h1>Pixel Project</h1>
+    <div className='page'>
       <Canvas/>
       <Chat/>
-    </>
+    </div>
   );
 }
 

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
+import './chat.css'
 
 function Chat() {
-    const [backendData, setBackendData] = useState({ messages: [] }); // Adjusted assuming the backend returns { messages: [...] }
+    const [backendData, setBackendData] = useState({ messages: [] }); 
     const [author, setAuthor] = useState('');
     const [messageText, setMessageText] = useState('');
   
-    // Function to fetch messages
     const fetchMessages = async () => {
       try {
         const response = await fetch("http://localhost:9000/api");
@@ -18,8 +18,8 @@ function Chat() {
     };
   
     useEffect(() => {
-      fetchMessages(); // Call on component mount
-    }, []); // Empty dependency array ensures this runs once on mount
+      fetchMessages();
+    }, []); 
 
     
     const handleAuthorChange = (event) => {
@@ -28,6 +28,11 @@ function Chat() {
     
       const handleMessageChange = (event) => {
         setMessageText(event.target.value);
+      };
+
+      const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
       };
     
       const handleSubmit = async (event) => {
@@ -38,15 +43,13 @@ function Chat() {
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ author: author, messageText: messageText }), // Ensure these names match your server-side expectations
+            body: JSON.stringify({ author: author, messageText: messageText }),
           });
     
           if (response.ok) {
             console.log("Message posted successfully");
-            // Reset form
             setAuthor('');
             setMessageText('');
-            // Fetch messages again to refresh the list
             fetchMessages();
           } else {
             console.error("Failed to post message");
@@ -56,17 +59,30 @@ function Chat() {
         }
       };
   return (
-    <div>
+    <div className='chat_root'>
         <h2>chat:</h2>
-        {backendData.messages && backendData.messages.map((message, index) => (
-          <div key={index}>{message.text} - {message.user}</div>
-        ))}
-        <form onSubmit={handleSubmit}>
-          <h6>user:</h6>
-          <input value={author} onChange={handleAuthorChange} />
-          <h6>message:</h6>
-          <input value={messageText} onChange={handleMessageChange} />
-          <button type="submit">Post</button>
+        <div className="chat_box">
+          {backendData.messages && backendData.messages.map((message, index) => (
+            <div className="message" key={index}>
+            <div className="message_user">
+              {message.user}
+            </div>
+            <div className="message_date">
+              {formatDate(message.added)}
+            </div>
+            <div className="message_text">
+              {message.text}
+            </div>
+            </div>
+          ))}
+        </div>
+        <form className='form' onSubmit={handleSubmit}>
+          <div className="inputs">
+            
+            <input placeholder="Username"  value={author} onChange={handleAuthorChange} />
+            <input placeholder="Message"  value={messageText} onChange={handleMessageChange} />
+          </div>
+          <button className="submit_button" type="submit">Post</button>
         </form>
     </div>
   )
