@@ -14,5 +14,4 @@ PixelSchema.virtual("url").get(function () {
   return `/pixels/${this._id}`;
 });
 
-
 module.exports = mongoose.model('Pixel', PixelSchema);

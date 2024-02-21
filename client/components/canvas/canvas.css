@@ -1,0 +1,6 @@
+#canvas {
+    border:3px solid red;
+    display: grid;
+    grid-template-columns: repeat(21, 30px);
+    grid-template-rows: repeat(21, 30px);
+}
