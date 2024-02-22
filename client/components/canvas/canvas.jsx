@@ -8,7 +8,7 @@ const Canvas = () => {
   const [backendData, setBackendData] = useState({ messages: [] }); 
   const [currentColor, setCurrentColor] = useState('#32a852'); 
   const [isDrawing, setIsDrawing] = useState(false);
-  const [recentColors, setRecentColors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const startDrawing = (x, y) => {
     modifyPixel(x, y);
@@ -39,6 +39,11 @@ const Canvas = () => {
     }
     return { r, g, b };
   };
+
+  useEffect(() => {
+    setIsLoading(true); // Start loading
+    fetchMessages().then(() => setIsLoading(false)); // Stop loading after fetching
+  }, []);
   
   const fetchMessages = async () => {
     try {
@@ -99,21 +104,27 @@ const Canvas = () => {
         value={currentColor}
         onChange={(e) => setCurrentColor(e.target.value)}
       />
-    </div>
-      <div id="canvas"
-           onMouseDown={(e) => startDrawing()}
-           onMouseUp={stopDrawing}
-           onMouseLeave={stopDrawing}>
-        {backendData.pixel && backendData.pixel.map((pixel, index) => (
-          <div
-            onMouseMove={() => draw(pixel.x, pixel.y)}
-            onMouseDown={() => startDrawing(pixel.x, pixel.y)}
-            key={index}
-            style={pixelStyle(pixel.r, pixel.g, pixel.b)}
-            title={`x: ${pixel.x}, y: ${pixel.y}, rgb(${pixel.r},${pixel.g},${pixel.b})`}>
-          </div>
-        ))}
       </div>
+      {isLoading ? (
+        <>
+         <div className="spinner"></div>
+         <p>Loading chat history...</p> 
+       </>
+        ) : (
+        <div id="canvas"
+            onMouseDown={(e) => startDrawing()}
+            onMouseUp={stopDrawing}
+            onMouseLeave={stopDrawing}>
+          {backendData.pixel && backendData.pixel.map((pixel, index) => (
+            <div
+              onMouseMove={() => draw(pixel.x, pixel.y)}
+              onMouseDown={() => startDrawing(pixel.x, pixel.y)}
+              key={index}
+              style={pixelStyle(pixel.r, pixel.g, pixel.b)}
+              title={`x: ${pixel.x}, y: ${pixel.y}, rgb(${pixel.r},${pixel.g},${pixel.b})`}>
+            </div>
+          ))}
+      </div>)}
     </div>
   );
 };

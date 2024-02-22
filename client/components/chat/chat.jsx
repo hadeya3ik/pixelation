@@ -5,6 +5,7 @@ function Chat() {
     const [backendData, setBackendData] = useState({ messages: [] }); 
     const [author, setAuthor] = useState('');
     const [messageText, setMessageText] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
   
     const fetchMessages = async () => {
       try {
@@ -20,6 +21,12 @@ function Chat() {
     useEffect(() => {
       fetchMessages();
     }, []); 
+
+    useEffect(() => {
+      setIsLoading(true); // Start loading
+      fetchMessages().then(() => setIsLoading(false)); // Stop loading after fetching
+    }, []);
+  
 
     
     const handleAuthorChange = (event) => {
@@ -61,6 +68,12 @@ function Chat() {
   return (
     <div className='chat_root'>
         <h2>chat:</h2>
+        {isLoading ? (
+          <>
+            <div className="spinner"></div>
+            <p>Loading chat history...</p> 
+          </>
+      ) : ( <>
         <div className="chat_box">
           {backendData.messages && backendData.messages.map((message, index) => (
             <div className="message" key={index}>
@@ -84,6 +97,7 @@ function Chat() {
           </div>
           <button className="submit_button" type="submit">Post</button>
         </form>
+      </> )}
     </div>
   )
 }
