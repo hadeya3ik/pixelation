@@ -1,7 +1,7 @@
 ## Overview
 
-This project features a real-time interactive platform consisting of a chat application and a drawing canvas, inspired by the popular online collaboration project, r/place
-
+This project features a real-time interactive platform consisting of a chat application and a drawing canvas, inspired by r/place
+https://pixelation-vkoh.vercel.app/
 ## Technologies Used
 
 - **Frontend**: React
