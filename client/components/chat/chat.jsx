@@ -8,7 +8,7 @@ function Chat() {
   
     const fetchMessages = async () => {
       try {
-        const response = await fetch("http://localhost:9000/api");
+        const response = await fetch("https://pixelation-1.onrender.com/api");
         const data = await response.json();
         console.log(data);
         setBackendData(data);
@@ -38,7 +38,7 @@ function Chat() {
       const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-          const response = await fetch('http://localhost:9000/api', {
+          const response = await fetch('https://pixelation-1.onrender.com/api', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

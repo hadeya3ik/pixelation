@@ -42,7 +42,8 @@ const Canvas = () => {
   
   const fetchMessages = async () => {
     try {
-      const response = await fetch("http://localhost:9000/pixels");
+      const response = await fetch("https://pixelation-1.onrender.com/pixels");
+      // const response = await fetch("http://localhost:9000/pixels");
       const data = await response.json();
       console.log(data);
       setBackendData(data);
@@ -54,7 +55,8 @@ const Canvas = () => {
   const modifyPixel = async (x, y) => {
     const { r, g, b } = convertHexToRGB(currentColor); // get the latest color values
     try {
-      const response = await fetch(`http://localhost:9000/pixels/updateByCoordinates`, {
+      const response = await fetch(`https://pixelation-1.onrender.com/pixels/updateByCoordinates`, {
+      // const response = await fetch(`http://localhost:9000/pixels/updateByCoordinates`, {
         method: 'PUT', 
         headers: {
           'Content-Type': 'application/json',
