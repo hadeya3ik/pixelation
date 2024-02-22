@@ -97,18 +97,18 @@ const Canvas = () => {
 
   return (  
     <div>
-      <div style={{ padding: '1rem' }}>
-      <label style={{ padding: '1rem' }}>Color:</label>
-      <input
-        type="color"
-        value={currentColor}
-        onChange={(e) => setCurrentColor(e.target.value)}
-      />
-      </div>
       {isLoading ? (
         <>
+        <div style={{ padding: '1rem' }}>
+        <label style={{ padding: '1rem' }}>Color:</label>
+        <input
+          type="color"
+          value={currentColor}
+          onChange={(e) => setCurrentColor(e.target.value)}
+        />
+      </div>
          <div className="spinner"></div>
-         <p>Loading chat history...</p> 
+         <p>Loading art work...</p> 
        </>
         ) : (
         <div id="canvas"
