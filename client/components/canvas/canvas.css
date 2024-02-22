@@ -13,9 +13,6 @@
     user-select: none; /* Standard syntax */
   }
   
-  #canvas > div {
-    pointer-events: none; 
-  }
   
   #canvas > div::after {
     content: ''; 
