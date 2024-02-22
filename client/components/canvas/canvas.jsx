@@ -6,7 +6,7 @@ import './canvas.css'
 
 const Canvas = () => {
   const [backendData, setBackendData] = useState({ messages: [] }); 
-  const [currentColor, setCurrentColor] = useState('#32a852'); 
+  const [currentColor, setCurrentColor] = useState('#FFFFFF'); 
   const [isDrawing, setIsDrawing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
