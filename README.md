@@ -13,3 +13,4 @@ https://pixelation-vkoh.vercel.app/
 
 
 upgrade from https://hadeya3ik.github.io/pixel-draw/ ?
+https://pixelation-1.onrender.com/pixels
